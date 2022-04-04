@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+const mongod = require("mongod");
 // user Schema
 const UserSchema = new mongoose.Schema(
-  {
+  { // user identifiers
     username: {
       type: String,
       require: true,
@@ -15,11 +15,7 @@ const UserSchema = new mongoose.Schema(
       max: 100,
       unique: true,
     },
-    password: {
-      type: String,
-      required: true,
-      min: 8,
-    },
+  // following actions 
     followers: {
       type: Array,
       default: [],

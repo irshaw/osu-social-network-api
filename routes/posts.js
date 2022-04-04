@@ -10,9 +10,7 @@ router.post("/", async (req, res) => {
     try {
       const Post = await newPost.save();
       res.status(200).json(Post);
-    } catch (err) {
-      res.status(500).json(err);
-    }
+   
   });
 
   // update a post 
@@ -25,9 +23,7 @@ router.post("/", async (req, res) => {
       } else {
         res.status(400).json("update has failed");
       }
-    } catch (err) {
-      res.status(500).json(err);
-    }
+    
   });
 
   // delete a post 
@@ -40,9 +36,7 @@ router.post("/", async (req, res) => {
       } else {
         res.status(400).json("delete has failed");
       }
-    } catch (err) {
-      res.status(500).json(err);
-    }
+    
   });
 
   // get a post by id
@@ -51,7 +45,7 @@ router.post("/", async (req, res) => {
       const post = await Post.findById(req.params.id);
       res.status(200).json(post);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(400).json(err);
     }
   });
   

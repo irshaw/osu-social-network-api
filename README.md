@@ -1,17 +1,19 @@
 # osu-social-network-api
 
 # Description
-This is a project is a social network api it allows you to be able to create 
+This is a project is a social network api where users can share their thoughts, follow friends, create post and more 
 
 # Table of Contents
 - Description
-- Server instructions 
-- Credit
+- Install Instructions 
+-Usage
 
 
-# Server instructions 
-npm i - installing the dependencies
-npm run start - starting the server
 
-# Credit
-OSU Coding Bootcamp 
+# install instructions 
+npm init
+npm install
+
+# Usage 
+npm start 
+Insomnia app for testing

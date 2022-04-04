@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongod = require("mongod");
 
 const PostSchema = new mongoose.Schema(
   {
@@ -10,8 +10,6 @@ const PostSchema = new mongoose.Schema(
       type: String,
       max: 500,
     },
-    
-    
   },
   { timestamps: true }
 );

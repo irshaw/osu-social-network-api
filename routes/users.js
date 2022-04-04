@@ -1,11 +1,11 @@
-//get a user
+//get a user by id 
 router.get("/:id", async (req, res) => {
     try {
       const user = await user.findById(req.params.id);
       const { password, updatedAt, ...other } = user._doc;
       res.status(200).json(other);
     } catch (err) {
-      res.status(500).json(err);
+      res.status(400).json(err);
     }
   });
 
@@ -18,14 +18,11 @@ router.get("/:id", async (req, res) => {
         });
         res.status(200).json("Account has been updated");
       } catch (err) {
-        return res.status(500).json(err);
-      }
-    } else {
       return res.status(400).json("not able to update the account");
     }
   });
 
-  // delete a user 
+  // delete a user by id
   router.delete("/:id", async (req, res) => {
     if (req.body.userId === req.params.id || req.body.isAdmin) {
       try {
@@ -39,7 +36,7 @@ router.get("/:id", async (req, res) => {
     }
   });
   
-  // follow a user 
+  // follow a user by id 
   router.put("/:id/follow", async (req, res) => {
     if (req.body.userId !== req.params.id) {
       try {
@@ -53,13 +50,12 @@ router.get("/:id", async (req, res) => {
   
     
 
-  // unfollow a user 
+  // unfollow a user by id 
   
 router.put("/:id/unfollow", async (req, res) => {
     if (req.body.userId !== req.params.id) {
       try {
         const user = await user.findById(req.params.id);
-        
           res.status(200).json("user has been unfollowed");
         } else {
           res.status(400).json("you dont follow this user");
