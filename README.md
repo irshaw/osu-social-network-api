@@ -1,7 +1,7 @@
 # osu-social-network-api
 
 # Description
-This is a project was created at OSU Coding Bootcamp course. The application is  a text editor that runs in the browser.
+This is a project is a social network api it allows you to be able to create 
 
 # Table of Contents
 - Description

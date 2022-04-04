@@ -1,7 +1,7 @@
 //get a user
 router.get("/:id", async (req, res) => {
     try {
-      const user = await User.findById(req.params.id);
+      const user = await user.findById(req.params.id);
       const { password, updatedAt, ...other } = user._doc;
       res.status(200).json(other);
     } catch (err) {
@@ -9,19 +9,11 @@ router.get("/:id", async (req, res) => {
     }
   });
 
-  // update a user 
+  // update a user by id 
   router.put("/:id", async (req, res) => {
-    if (req.body.userId === req.params.id || req.body.isAdmin) {
-      if (req.body.password) {
-        try {
-          const salt = await bcrypt.genSalt(10);
-          req.body.password = await bcrypt.hash(req.body.password, salt);
-        } catch (err) {
-          return res.status(500).json(err);
-        }
-      }
+    if (req.body.userId === req.params.id) {
       try {
-        const user = await User.findByIdAndUpdate(req.params.id, {
+        const user = await user.findByIdAndUpdate(req.params.id, {
           $set: req.body,
         });
         res.status(200).json("Account has been updated");
@@ -29,7 +21,7 @@ router.get("/:id", async (req, res) => {
         return res.status(500).json(err);
       }
     } else {
-      return res.status(400).json("You can update only your account!");
+      return res.status(400).json("not able to update the account");
     }
   });
 
@@ -43,7 +35,7 @@ router.get("/:id", async (req, res) => {
         return res.status(500).json(err);
       }
     } else {
-      return res.status(400).json("You can delete only your account!");
+      return res.status(400).json(" not able to delete the account ");
     }
   });
   
@@ -51,41 +43,27 @@ router.get("/:id", async (req, res) => {
   router.put("/:id/follow", async (req, res) => {
     if (req.body.userId !== req.params.id) {
       try {
-        const user = await User.findById(req.params.id);
-        const currentUser = await User.findById(req.body.userId);
+        const user = await user.findById(req.params.id);
         if (!user.followers.includes(req.body.userId)) {
-          await user.updateOne({ $push: { followers: req.body.userId } });
-          await currentUser.updateOne({ $push: { followings: req.params.id } });
-          res.status(200).json("user has been followed");
+          res.status(200).json("you have followed the user");
         } else {
-          res.status(400).json("you allready follow this user");
+          res.status(400).json("user is already followed ");
         }
-      } catch (err) {
-        res.status(500).json(err);
-      }
-    } else {
-      res.status(400).json("you cant follow yourself");
-    }
-  });
+    });
+  
+    
 
   // unfollow a user 
   
 router.put("/:id/unfollow", async (req, res) => {
     if (req.body.userId !== req.params.id) {
       try {
-        const user = await User.findById(req.params.id);
-        const currentUser = await User.findById(req.body.userId);
-        if (user.followers.includes(req.body.userId)) {
-          await user.updateOne({ $pull: { followers: req.body.userId } });
-          await currentUser.updateOne({ $pull: { followings: req.params.id } });
+        const user = await user.findById(req.params.id);
+        
           res.status(200).json("user has been unfollowed");
         } else {
           res.status(400).json("you dont follow this user");
-        }
-      } catch (err) {
-        res.status(500).json(err);
-      }
-    } else {
-      res.status(400).json("you cant unfollow yourself");
-    }
+        }}
+      
+    
   });
